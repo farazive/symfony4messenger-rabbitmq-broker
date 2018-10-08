@@ -1,0 +1,26 @@
+framework:
+    messenger:
+        buses:
+             messenger.bus.default:
+                 middleware:
+                     - 'App\Middleware\MyMiddleware'
+
+# FOR CQRS
+# config below form https://symfony.com/doc/current/messenger.html#middleware
+
+#    messenger:
+        # The bus that is going to be injected when injecting MessageBusInterface:
+#        default_bus: messenger.bus.commands
+
+        # Create buses
+#        buses:
+#            messenger.bus.commands: ~
+#            messenger.bus.events: ~
+
+        transports:
+            # Uncomment the following line to enable a transport named "amqp"
+             amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+        routing:
+            # Route your messages to the transports
+             'App\Message\MyMessage': amqp
